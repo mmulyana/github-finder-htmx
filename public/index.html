@@ -6,13 +6,11 @@
     <title>HTMX</title>
   </head>
   <body>
-    <h2 id="counter">Counter <span>0</span></h2>
-    <button hx-get="/api/dec" hx-swap="innerHTMX" hx-target="#counter">
-      DEC
-    </button>
-    <button hx-get="/api/inc" hx-swap="innerHTMX" hx-target="#counter">
-      INC
-    </button>
+    <form hx-post="/find" hx-target="#result">
+      <input name="name" id="name" type="text" />
+      <button type="submit">Find</button>
+    </form>
+    <div id="result"></div>
     <script
       src="https://unpkg.com/htmx.org@1.9.12"
       integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2"

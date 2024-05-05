@@ -1,22 +1,36 @@
 const express = require('express')
+const path = require('path')
+const { getUserByName } = require('./utils/github')
 
 const app = express()
 
-let counter = 0
-
-app.use(express.static('public'))
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(express.static(path.join(__dirname, 'public')))
 
 const router = express.Router()
 
-router.get('/api/inc', (req, res) => {
-  counter++
-  const updatedCounter = `<h2 id="counter">Counter <span>${counter}</span></h2>`
-  res.send(updatedCounter)
+router.get('/', (req, res) => {
+  res.render('index')
 })
-router.get('/api/dec', (req, res) => {
-  counter--
-  const updatedCounter = `<h2 id="counter">Counter <span>${counter}</span></h2>`
-  res.send(updatedCounter)
+
+router.post('/find', async (req, res) => {
+  const user = await getUserByName(req.body.name)
+  if (!!user.message) {
+    const html = `
+      <div>
+        <p>${user.message}</p>
+      </div>
+    `
+
+    return res.send(html)
+  }
+  const html = `
+    <div>
+      <p>${user.login}</p>
+    </div>
+  `
+  res.send(html)
 })
 
 app.use(router)
