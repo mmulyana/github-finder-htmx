@@ -16,10 +16,38 @@ router.get('/', (req, res) => {
 
 router.post('/find', async (req, res) => {
   const user = await getUserByName(req.body.name)
-  if (!!user.message) {
+
+  if (!!user.login) {
     const html = `
       <div>
-        <p>${user.message}</p>
+        <div>
+          <img src="${user.avatar_url}"/>
+        </div>
+        <div>
+          <div>
+            <p>${user.name}</p>
+            <p>${user.login}</p>
+          </div>
+          <p>${user.bio}</p>
+          <div>
+            <div>
+              <i class=""></i>
+              <p>${user.location}</p>
+            </div>
+            <div>
+              <i class=""></i>
+              <p>${user.company}</p>
+            </div>
+            <div>
+              <i class=""></i>
+              <p>${user.blog}</p>
+            </div>
+            <div>
+              <i class=""></i>
+              <p>${user.twitter_username}</p>
+            </div>
+          </div>
+        </div>
       </div>
     `
 
@@ -27,7 +55,7 @@ router.post('/find', async (req, res) => {
   }
   const html = `
     <div>
-      <p>${user.login}</p>
+      <p>User not found</p>
     </div>
   `
   res.send(html)
