@@ -47,6 +47,21 @@ router.post('/find', async (req, res) => {
               <p>${user.twitter_username}</p>
             </div>
           </div>
+
+          <div>
+            <div>
+              <p>Repo</p>
+              <p>${user.public_repos}</p>
+            </div>
+            <div>
+              <p>Followers</p>
+              <p>${user.followers}</p>
+            </div>
+            <div>
+              <p>Following</p>
+              <p>${user.following}</p>
+            </div>
+          </div>
         </div>
       </div>
     `
